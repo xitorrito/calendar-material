@@ -24,6 +24,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter;
@@ -67,6 +68,7 @@ import java.util.List;
 public class MaterialCalendarView extends ViewGroup {
 
     public static final int INVALID_TILE_DIMENSION = -10;
+    private LinearLayout arrows;
 
     /**
      * {@linkplain IntDef} annotation for selection mode.
@@ -400,22 +402,57 @@ public class MaterialCalendarView extends ViewGroup {
     }
 
     private void setupChildren() {
+
         topbar = new LinearLayout(getContext());
         topbar.setOrientation(LinearLayout.HORIZONTAL);
+        topbar.setGravity(Gravity.CENTER_VERTICAL);
         topbar.setClipChildren(false);
         topbar.setClipToPadding(false);
         addView(topbar, new LayoutParams(1));
 
-        buttonPast.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        topbar.addView(buttonPast, new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1));
-
-        title.setGravity(Gravity.CENTER);
+        title.setGravity(Gravity.CENTER_VERTICAL);
         topbar.addView(title, new LinearLayout.LayoutParams(
                 0, LayoutParams.MATCH_PARENT, DEFAULT_DAYS_IN_WEEK - 2
         ));
+        buttonPast.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        topbar.addView(buttonPast, new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1));
+
 
         buttonFuture.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        topbar.addView(buttonFuture, new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1));
+        topbar.addView(buttonFuture, new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1));
+
+
+//        topbar = new LinearLayout(getContext());
+////        topbar.setOrientation(LinearLayout.HORIZONTAL);
+//        topbar.setClipChildren(false);
+//        topbar.setClipToPadding(false);
+//        addView(topbar, new LayoutParams(1));
+//
+//
+////        title.setGravity(Gravity.START);
+////        topbar.addView(title, new LinearLayout.LayoutParams(
+////                0, LayoutParams.MATCH_PARENT, DEFAULT_DAYS_IN_WEEK - 2
+////        ));
+////        RelativeLayout relativeLayout = new RelativeLayout(getContext());
+////        relativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+////                ViewGroup.LayoutParams.MATCH_PARENT));
+//
+//        arrows = new LinearLayout(getContext());
+//        arrows.setOrientation(LinearLayout.HORIZONTAL);
+//        arrows.setClipChildren(false);
+//        arrows.setClipToPadding(false);
+//        arrows.setGravity(Gravity.END);
+//
+//        arrows.addView(buttonFuture, new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 0));
+//        buttonFuture.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+//        arrows.addView(buttonPast, new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT, 0));
+//        buttonPast.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+//        arrows.setGravity(Gravity.END);
+////        relativeLayout.addView(arrows);
+//        topbar.addView(arrows);
+////        topbar.addView(arrows, new LinearLayout.LayoutParams(
+////                0, LayoutParams.WRAP_CONTENT, DEFAULT_DAYS_IN_WEEK - 2
+////        ));
 
         pager.setId(R.id.mcv_pager);
         pager.setOffscreenPageLimit(1);
